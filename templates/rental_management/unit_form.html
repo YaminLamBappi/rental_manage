@@ -1,0 +1,20 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+{% block title %} Unit {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/add_edit_flat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>{% if form.instance.pk %}Edit Unit{% else %}Add Unit{% endif %}</h1>
+    <form method="POST" class="flat-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if form.instance.pk %} Save Changes{% else %} Add Flat{% endif %}</button>
+    </form>
+    <button class="cancel-button" href="{% url 'unit_list' %}">Cancel</button>
+
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block title %}Flat List{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/flat_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Unit List</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Unit Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for unit in units %}
+            <tr>
+                <td>{{ unit.id }}</td>
+                <td>{{ unit.name }}</td> <!-- Displaying flat number as per the model -->
+                <td>
+                    <a href="{% url 'edit_unit' unit.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'delete_unit' unit.id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

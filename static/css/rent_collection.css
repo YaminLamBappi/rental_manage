@@ -1,0 +1,107 @@
+/* Overall Page Layout */
+.main-content {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+  }
+  
+  /* Form Styling */
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .form label {
+    display: block;
+    width: 120px;
+    margin-bottom: 5px;
+  }
+  
+  .form input[type="text"],
+  .form input[type="date"] {
+    width: calc(100% - 130px);
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .form button {
+    background-color: #337ab7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .form button:hover {
+    background-color: #286090;
+  }
+  
+  /* Tenant Information Fields */
+  .tenant-info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .tenant-info label,
+  .tenant-info input[type="text"],
+  .tenant-info input[type="hidden"] {
+    width: 50%;
+    margin-bottom: 5px;
+  }
+  
+  .tenant-info input[type="text"],
+  .tenant-info input[type="hidden"] {
+    background-color: #eee;
+    border: none;
+  }
+  
+  /* Search Box */
+  #tenantSearch {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  #tenantResults {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    max-height: 100px;
+    overflow-y: auto;
+  }
+  
+  #tenantResults li {
+    padding: 5px 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+  
+  #tenantResults li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .cancel-button:hover {
+    background-color: #ff3333;
+  }

@@ -1,0 +1,39 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+{% block title %} Profile{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>User Profile</h1>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-photo">
+            {% if profile.profile_photo %}
+            <img src="{{ profile.profile_photo.url }}" alt="Profile Photo">
+            {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Photo">
+            {% endif %}
+        </div>
+
+        <div class="profile-details">
+            <h2>{{ user.fir }}</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+            <p><strong>Address:</strong> {{ profile.address }}</p>
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'accounts:edit_profile' %}" class="btn">Edit Profile</a>
+        <a href="{% url 'accounts:logout' %}" class="btn logout">Logout</a>
+    </div>
+</div>
+
+{% endblock %}

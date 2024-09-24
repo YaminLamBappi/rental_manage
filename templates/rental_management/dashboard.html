@@ -1,0 +1,33 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Rental Management Dashboard</h1>
+    <div class="dashboard-stats">
+        <div class="stat">
+            <p>Total Tenants</p>
+            <h2>{{ tenants }}</h2>
+        </div>
+        <div class="stat">
+            <p>Total Flats</p>
+            <h2>{{ flats }}</h2>
+        </div>
+        <div class="stat">
+            <p>Total Units</p>
+            <h2>{{ units }}</h2>
+        </div>
+        <div class="stat">
+            <p>Total Rent Collected</p>
+            <h2>{{ total_rent_collected }}</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block title %} Add Rent Collection {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/rent_collection.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Add Rent Collection</h1>
+
+    <!-- Rent Collection Form -->
+    <form method="POST" id="rentCollectionForm" class="form">
+        {% csrf_token %}
+
+        <!-- Tenant search input -->
+        <label for="tenantSearch">Search Tenant:</label>
+        <input type="text" id="tenantSearch" placeholder="Enter name or phone" autocomplete="off">
+        <ul id="tenantResults"></ul> <!-- To display search results -->
+
+        <!-- Tenant Information Fields (auto-filled) -->
+        <div class="tenant-info">
+            <label for="tenantName">Tenant Name:</label>
+            <input type="text" id="tenantName" disabled>
+
+            <!-- Hidden tenant field that will be submitted with the form -->
+            <input type="hidden" id="tenant" name="tenant"> <!-- Hidden tenant field -->
+
+            <label for="flat">Flat:</label>
+            <input type="text" id="flat" disabled>
+
+            <label for="unit">Unit:</label>
+            <input type="text" id="unit" disabled>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" disabled>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" disabled>
+
+            <label for="rent">Rent:</label>
+            <input type="text" id="rent" disabled>
+
+            <label for="water_bill">Water Bill:</label>
+            {{ form.water_bill }}
+
+            <label for="gas_bill">Gas Bill:</label>
+            {{ form.gas_bill }}
+
+            <label for="service_charge">Service Charge:</label>
+            {{ form.service_charge }}
+
+            <label for="wifi_charge">WiFi Charge:</label>
+            {{ form.wifi_charge }}
+
+            <label for="total">Total:</label>
+            <input type="text" id="total" name="total" disabled>
+
+            <label for="payment_date">Payment Date:</label>
+            <input type="date" id="payment_date" name="payment_date" required>
+        </div>
+
+        <button type="submit">{% if form.instance.pk %} Save Changes{% else %} Add Rent Collection{% endif %}</button>
+    </form>
+
+    <button class="cancel-button" href="{% url 'rent_collection_list' %}">Cancel</button>
+</div>
+
+<script>
+    // Fetch tenant details by search query (AJAX request)
+    document.getElementById('tenantSearch').addEventListener('keyup', function () {
+        let query = this.value;
+        if (query.length < 2) {
+            document.getElementById('tenantResults').innerHTML = '';
+            return;
+        }
+
+        // Use fetch API to search tenants (Django view will handle the request)
+        fetch(`/search_tenant/?query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultsList = document.getElementById('tenantResults');
+                resultsList.innerHTML = '';  // Clear previous results
+
+                data.tenants.forEach(tenant => {
+                    const li = document.createElement('li');
+                    li.innerHTML = tenant.name + ' - ' + tenant.phone_number;
+                    li.setAttribute('data-tenant-id', tenant.id);
+                    li.addEventListener('click', function () {
+                        fetchTenantDetails(tenant.id);
+                    });
+                    resultsList.appendChild(li);
+                });
+            });
+    });
+
+    // Fetch tenant details and auto-fill the form
+    function fetchTenantDetails(tenantId) {
+        fetch(`/tenant_details/${tenantId}/`)
+            .then(response => response.json())
+            .then(tenant => {
+                // Fill tenant information fields
+                document.getElementById('tenantName').value = tenant.name;
+                document.getElementById('flat').value = tenant.flat.flat_number;
+                document.getElementById('unit').value = tenant.unit.name;
+                document.getElementById('phone').value = tenant.phone_number;
+                document.getElementById('email').value = tenant.email;
+                document.getElementById('rent').value = tenant.rent;
+
+                // Set the hidden tenant input field with the tenant ID
+                document.getElementById('tenant').value = tenantId;  // This line sets the tenant ID
+            });
+    }
+
+    // Calculate total rent dynamically
+    const billFields = ['water_bill', 'gas_bill', 'service_charge', 'wifi_charge'];
+    billFields.forEach(field => {
+        document.getElementById(`id_${field}`).addEventListener('input', calculateTotal);
+    });
+
+    function calculateTotal() {
+        let rent = parseFloat(document.getElementById('rent').value) || 0;
+        let waterBill = parseFloat(document.getElementById('id_water_bill').value) || 0;
+        let gasBill = parseFloat(document.getElementById('id_gas_bill').value) || 0;
+        let serviceCharge = parseFloat(document.getElementById('id_service_charge').value) || 0;
+        let wifiCharge = parseFloat(document.getElementById('id_wifi_charge').value) || 0;
+
+        let total = rent + waterBill + gasBill + serviceCharge + wifiCharge;
+        document.getElementById('total').value = total.toFixed(2);  // Show total amount
+    }
+</script>
+{% endblock %}

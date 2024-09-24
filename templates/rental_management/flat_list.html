@@ -1,0 +1,35 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block title %}Flat List{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/flat_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Flat List</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Flat Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flat in flats %}
+            <tr>
+                <td>{{ flat.id }}</td>
+                <td>{{ flat.flat_number }}</td> <!-- Displaying flat number as per the model -->
+                <td>
+                    <a href="{% url 'edit_flat' flat.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'delete_flat' flat.id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

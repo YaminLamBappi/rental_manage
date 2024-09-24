@@ -1,0 +1,20 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+{% block title %} Tenant{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/add_tenant.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">.
+    <h1>{% if form.instance.pk %} Edit Tenant{% else %}Add Tenant{% endif %}</h1>
+    <form method="POST" class="tenant-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Tenant</button>
+    </form>
+    <button class="cancel-button" href="{% url 'tenant_list' %}">Cancel</button>
+
+</div>
+{% endblock %}

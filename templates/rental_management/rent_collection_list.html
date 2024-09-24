@@ -1,0 +1,83 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block title %}Rent Collection List{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/tenant_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Manage Rent Collections</h1>
+    <form method="GET" action="{% url 'rent_collection_list' %}">
+        <input type="text" id="collectionSearch" placeholder="Search by tenant name or phone number"
+            onkeyup="searchCollections()">
+
+        <button type="submit">Search</button>
+    </form>
+
+    <table class="table table-hover" id="collectionTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Phone Number</th>
+                <th>Tenant Name</th>
+                <th>Email</th>
+                <th>Flat Number</th>
+                <th>Unit Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for collection in rent_collections %}
+            <tr id="collection-row-{{ collection.id }}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ collection.tenant.phone_number }}</td>
+                <td>{{ collection.tenant.name }}</td>
+                <td>{{ collection.tenant.email }}</td>
+                <td>{{ collection.tenant.flat.flat_number }}</td>
+                <td>{{ collection.tenant.unit.name }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'edit_rent_collection' collection.id %}"
+                        title="Edit">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'delete_rent_collection' collection.id %}"
+                        title="Delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span>Showing 1 to {{ rent_collections.count }} of {{ rent_collections.count }} entries</span>
+        <div class="pagination-links">
+            <a href="#">Prev</a>
+            <span>1</span>
+            <a href="#">Next</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchCollections() {
+        const searchFilter = document.getElementById('collectionSearch').value.toLowerCase();
+        const table = document.getElementById('collectionTable');
+        const tr = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName('td');
+            let found = true;
+
+            // Check search filter for tenant name and phone number
+            if (searchFilter && !(td[1].innerText.toLowerCase().includes(searchFilter) ||
+                td[2].innerText.toLowerCase().includes(searchFilter))) {
+                found = false; // No match found
+            }
+
+
+            tr[i].style.display = found ? "" : "none"; // Show or hide the row
+        }
+    }
+</script>
+{% endblock %}

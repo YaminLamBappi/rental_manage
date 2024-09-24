@@ -1,0 +1,72 @@
+/* Main Content Styles */
+.main-content {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+.flat-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.flat-form p {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.cancel-link {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+
+.cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .cancel-button:hover {
+    background-color: #ff3333;
+  }

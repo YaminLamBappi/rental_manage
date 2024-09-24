@@ -1,0 +1,99 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Main Content */
+.main-content {
+    background-color: white;
+    padding: 30px; /* Increased padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Increased max width */
+    margin: auto; /* Center the form */
+}
+
+.btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+/* Heading */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+.tenant-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form Fields */
+.tenant-form p {
+    margin-bottom: 20px; /* Increased space between form fields */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+    width: 100%; /* Full width */
+    padding: 12px; /* Increased padding for input fields */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px; /* Increased font size */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus {
+    border-color: #28a745; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    padding: 12px; /* Increased padding */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px; /* Space between fields and button */
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Cancel Link */
+.cancel-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}

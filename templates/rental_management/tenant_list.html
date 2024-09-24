@@ -1,0 +1,102 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+
+{% block title %}Tenant List{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/tenant_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Manage Tenants</h1>
+    <form method="GET" action="{% url 'tenant_list' %}">
+        <input type="text" id="tenantSearch" placeholder="Search by name" onkeyup="searchTenants()">
+        <select id="flatFilter" onchange="searchTenants()">
+            <option value="">-- Select Flat --</option>
+            {% for flat in flats %}
+            <option value="{{ flat.id }}">{{ flat.flat_number }}</option>
+            {% endfor %}
+        </select>
+        <select id="unitFilter" onchange="searchTenants()">
+            <option value="">-- Select Unit --</option>
+            {% for unit in units %}
+            <option value="{{ unit.id }}">{{ unit.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    <table class="table table-hover" id="tenantTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Flat</th>
+                <th>Unit</th>
+                <th>Rent</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tenant in tenants %}
+            <tr id="tenant-row-{{ tenant.id }}">
+                <td>{{ tenant.name }}</td>
+                <td>{{ tenant.email }}</td>
+                <td>{{ tenant.phone_number }}</td>
+                <td>{{ tenant.flat.flat_number }}</td>
+                <td>{{ tenant.unit.name }}</td>
+                <td>{{ tenant.rent }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'edit_tenant' tenant.id %}" title="Edit">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'delete_tenant' tenant.id %}" title="Delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span>Showing 1 to {{ tenants.count }} of {{ tenants.count }} entries</span>
+        <div class="pagination-links">
+            <a href="#">Prev</a>
+            <span>1</span>
+            <a href="#">Next</a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function searchTenants() {
+        const nameFilter = document.getElementById('tenantSearch').value.toLowerCase();
+        const flatFilter = document.getElementById('flatFilter').value;
+        const unitFilter = document.getElementById('unitFilter').value;
+        const table = document.getElementById('tenantTable');
+        const tr = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < tr.length; i++) {
+            const td = tr[i].getElementsByTagName('td');
+            let found = true;
+
+            // Check name filter
+            if (nameFilter && !td[0].innerText.toLowerCase().includes(nameFilter)) {
+                found = false; // Name does not match
+            }
+
+            // Check flat filter
+            if (flatFilter && td[3].innerText !== document.querySelector(`#flatFilter option[value="${flatFilter}"]`).innerText) {
+                found = false; // Flat does not match
+            }
+
+            // Check unit filter
+            if (unitFilter && td[4].innerText !== document.querySelector(`#unitFilter option[value="${unitFilter}"]`).innerText) {
+                found = false; // Unit does not match
+            }
+
+            tr[i].style.display = found ? "" : "none"; // Show or hide the row
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> {% block title %}Document{% endblock %}</title>
+
+
+    <!-- ICONS -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <aside class="container">
+        <div class="sidebar">
+            <div class="menu-btn">
+                <i class="ph-bold ph-caret-left"></i>
+            </div>
+            <div class="head">
+                <div class="user-img">
+                    {% if profile and profile.profile_photo %}
+                    <img src="{{ profile.profile_photo.url }}" alt="Profile Photo">
+                    {% else %}
+                    <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Photo">
+                    {% endif %}
+                </div>
+                <div class="user-details">
+                    <p class="name">{{ user.username }}</p> <!-- Display the logged-in user's name -->
+                    <a href="{% url 'accounts:profile' %}" class="profile-link">View Profile</a>
+                    <!-- Link to user profile -->
+                </div>
+            </div>
+
+
+            <div class="nav">
+                <div class="menu">
+                    <p class="title">Main</p>
+                    <ul>
+                        <li>
+                            <a href="{% url 'dashboard' %}">
+                                <i class="icon ph-bold ph-house-simple"></i>
+                                <span class="text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon ph-bold ph-address-book"></i>
+                                <span class="text">Tenants</span>
+                                <i class="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{% url 'add_tenant' %}">
+                                        <span class="text">Add Tenants</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'tenant_list' %}">
+                                        <span class="text">Manage Tenants</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon ph-bold ph-house-line"></i>
+                                <span class="text">Flat</span>
+                                <i class="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{% url 'add_flat' %}">
+                                        <span class="text">Add Flat</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'flat_list' %}">
+                                        <span class="text">Manage Flat</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon ph-bold ph-building-apartment"></i>
+                                <span class="text">Units</span>
+                                <i class="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{% url 'add_unit' %}">
+                                        <span class="text">Add Units</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'unit_list' %}">
+                                        <span class="text">Manage Units</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon ph-bold ph-wallet"></i>
+                                <span class="text">Rent Collection</span>
+                                <i class="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{% url 'add_rent_collection' %}">
+                                        <span class="text">Add Rent Collection</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'rent_collection_list' %}">
+                                        <span class="text">Manage Rent Collection</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="menu">
+                    <p class="title">Setting</p>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class="icon ph-bold ph-gear"></i>
+                                <span class="text">Setting</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="menu">
+                <p class="title">Account</p>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="icon ph-bold ph-info"></i>
+                            <span class="text">Help</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">
+                            <i class="icon ph-bold ph-sign-out"></i>
+                            <span class="text">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <!-- Add more content as needed -->
+    </aside>
+
+    <!-- jQuery -->
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+
+</body>
+
+</html>
