@@ -3,14 +3,15 @@ from .models import Tenant, Unit, Flat, RentCollection
 from .forms import TenantForm, UnitForm, FlatForm, RentCollectionForm
 from django.db.models import Sum
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
-# Home view
+@login_required
 def home(request):
     return render(request, "rental_management/dashboard.html")
 
 
-# Dashboard view
+@login_required
 def dashboard(request):
     tenants = Tenant.objects.count()
     flats = Flat.objects.count()
@@ -29,7 +30,7 @@ def dashboard(request):
     )
 
 
-# Tenant views
+@login_required
 def tenant_list(request):
     tenants = Tenant.objects.all()
     flats = Flat.objects.all()  # Fetch all flats
@@ -45,6 +46,7 @@ def tenant_list(request):
     return render(request, "rental_management/tenant_list.html", context)
 
 
+@login_required
 def tenant_create(request):
     if request.method == "POST":
         form = TenantForm(request.POST)
@@ -61,6 +63,7 @@ def tenant_create(request):
     return render(request, "rental_management/tenant_form.html", {"form": form})
 
 
+@login_required
 def tenant_edit(request, pk):
     tenant = get_object_or_404(Tenant, pk=pk)
     if request.method == "POST":
@@ -73,6 +76,7 @@ def tenant_edit(request, pk):
     return render(request, "rental_management/tenant_form.html", {"form": form})
 
 
+@login_required
 def tenant_delete(request, pk):
     tenant = get_object_or_404(Tenant, pk=pk)
     if request.method == "POST":
@@ -83,12 +87,13 @@ def tenant_delete(request, pk):
     )
 
 
-# Flat views
+@login_required
 def flat_list(request):
     flats = Flat.objects.all()
     return render(request, "rental_management/flat_list.html", {"flats": flats})
 
 
+@login_required
 def flat_create(request):
     if request.method == "POST":
         form = FlatForm(request.POST)
@@ -100,6 +105,7 @@ def flat_create(request):
     return render(request, "rental_management/flat_form.html", {"form": form})
 
 
+@login_required
 def flat_edit(request, pk):
     flat = get_object_or_404(Flat, pk=pk)
     if request.method == "POST":
@@ -112,6 +118,7 @@ def flat_edit(request, pk):
     return render(request, "rental_management/flat_form.html", {"form": form})
 
 
+@login_required
 def flat_delete(request, pk):
     flat = get_object_or_404(Flat, pk=pk)
     if request.method == "POST":
@@ -120,12 +127,13 @@ def flat_delete(request, pk):
     return render(request, "rental_management/flat_confirm_delete.html", {"flat": flat})
 
 
-# Unit views
+@login_required
 def unit_list(request):
     units = Unit.objects.all()
     return render(request, "rental_management/unit_list.html", {"units": units})
 
 
+@login_required
 def unit_create(request):
     if request.method == "POST":
         form = UnitForm(request.POST)
@@ -137,6 +145,7 @@ def unit_create(request):
     return render(request, "rental_management/unit_form.html", {"form": form})
 
 
+@login_required
 def unit_edit(request, pk):
     unit = get_object_or_404(Unit, pk=pk)
     if request.method == "POST":
@@ -149,6 +158,7 @@ def unit_edit(request, pk):
     return render(request, "rental_management/unit_form.html", {"form": form})
 
 
+@login_required
 def unit_delete(request, pk):
     unit = get_object_or_404(Unit, pk=pk)
     if request.method == "POST":
@@ -157,7 +167,7 @@ def unit_delete(request, pk):
     return render(request, "rental_management/unit_confirm_delete.html", {"unit": unit})
 
 
-# Rent Collection views
+@login_required
 def rent_collection_list(request):
     rent_collections = RentCollection.objects.all()
     return render(
@@ -167,6 +177,7 @@ def rent_collection_list(request):
     )
 
 
+@login_required
 def rent_collection_create(request):
     if request.method == "POST":
         form = RentCollectionForm(request.POST)
@@ -183,7 +194,7 @@ def rent_collection_create(request):
     )
 
 
-# Search Tenant View (no new view needed)
+@login_required
 def search_tenant(request):
     query = request.GET.get("query", "")
     tenants = Tenant.objects.filter(name__icontains=query) | Tenant.objects.filter(
@@ -198,7 +209,7 @@ def search_tenant(request):
     return JsonResponse({"tenants": tenant_list})
 
 
-# Tenant Details View (use existing view logic)
+@login_required
 def tenant_details(request, tenant_id):
     tenant = get_object_or_404(Tenant, id=tenant_id)
 
@@ -214,6 +225,7 @@ def tenant_details(request, tenant_id):
     return JsonResponse(tenant_data)
 
 
+@login_required
 def rent_collection_edit(request, pk):
     rent_collection = get_object_or_404(RentCollection, pk=pk)
     if request.method == "POST":
@@ -228,6 +240,7 @@ def rent_collection_edit(request, pk):
     )
 
 
+@login_required
 def rent_collection_delete(request, pk):
     rent_collection = get_object_or_404(RentCollection, pk=pk)
     if request.method == "POST":

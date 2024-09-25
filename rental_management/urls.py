@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # Home view
     # Dashboard view
     path("dashboard/", views.dashboard, name="dashboard"),
     # Tenant views
