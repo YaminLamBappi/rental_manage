@@ -80,8 +80,12 @@ WSGI_APPLICATION = "rental_manage.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "mysql.connector.django",  # Use 'mysql.connector.django' if using mysql-connector-python
+        "NAME": "rental_manage",  # The name of your MySQL database
+        "USER": "rental",  # The MySQL username you just created or modified
+        "PASSWORD": "yamin12",  # The password you set in phpMyAdmin
+        "HOST": "localhost",  # Typically 'localhost'
+        "PORT": "3306",  # MySQL default port
     }
 }
 
