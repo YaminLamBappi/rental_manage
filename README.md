@@ -132,4 +132,5 @@ Contributing
 Contributions are welcome! Please fork this repository and submit a pull request for any improvements.
 
 Website:
-https://yamin1.pythonanywhere.com/
+This site was built using [Python,Django, MySql](https://yamin1.pythonanywhere.com/).
+
