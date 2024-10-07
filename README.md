@@ -131,7 +131,6 @@ This project is licensed under the MIT License. See the LICENSE file for details
 Contributing
 Contributions are welcome! Please fork this repository and submit a pull request for any improvements.
 
-Website:  
-This site was built using [Python, Django, MySQL](https://yamin1.pythonanywhere.com/).
+[Live Demo](https://yamin1.pythonanywhere.com/).
 
 
